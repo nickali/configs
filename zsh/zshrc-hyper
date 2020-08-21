@@ -22,8 +22,9 @@ alias ls='colorls --sd'
 alias cat='bat'
 alias less='bat'
 alias more='bat'
-alias 'grep'='batgrep --color --pager=bat'
+# alias 'grep'='batgrep --color --pager=bat'
 alias man='batman'
+alias journal='vi $(echo ${(L)$(date +%B-%Y)}).md'
 
 PROMPT_TITLE='$USER@$HOST:$PWD'
 
