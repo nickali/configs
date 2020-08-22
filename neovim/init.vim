@@ -93,6 +93,7 @@ Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'KeitaNakamura/neodark.vim'
 Plug 'morhetz/gruvbox'
 Plug 'tomasiser/vim-code-dark'
+Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 
 "*****************************************************************************
 "" Custom bundles
@@ -197,13 +198,30 @@ set number
 
 let no_buffers_menu=1
 "set t_Co=256
+
+" For Neovim 0.1.3 and 0.1.4 - https://github.com/neovim/neovim/pull/2198
+if (has('nvim'))
+"  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+endif
+
+" For Neovim > 0.1.5 and Vim > patch 7.4.1799 - https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162
+" Based on Vim patch 7.4.1770 (`guicolors` option) - https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
+" https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
+if (has('termguicolors'))
+"  set termguicolors
+endif
 set cursorline
 colorscheme codedark
+             
+"let g:material_terminal_italics = 1
+"let g:material_theme_style = 'darker'
+"colorscheme material
 
 " Rmoeve the background colors from the theme so its transparent
-highlight Normal ctermbg=NONE
-highlight nonText ctermbg=NONE
-highlight EndOfBuffer ctermbg=NONE
+highlight Normal ctermbg=NONE 
+highlight nonText ctermbg=NONE ctermfg=NONE
+highlight EndOfBuffer ctermbg=NONE 
+highlight LineNr ctermbg=NONE 
 
 " Change color of current line slightly
 highlight CursorLine ctermbg=8 cterm=bold guibg=8 gui=bold
@@ -229,8 +247,6 @@ else
 
   
 endif
-
-
 
 "" Disable the blinking cursor.
 set gcr=a:blinkon0
@@ -267,7 +283,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline_skip_empty_sections = 1
 "highlight StatusLine ctermbg=NONE
-"hi airline_tabfill ctermfg=NONE
+hi airline_tabfill ctermfg=NONE
 
 "*****************************************************************************
 "" Abbreviations
@@ -655,3 +671,5 @@ else
   let g:airline_symbols.linenr = ''
 endif
 
+
+highlight StatusLineNC ctermfg=NONE ctermbg=NONE
