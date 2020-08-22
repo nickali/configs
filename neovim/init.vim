@@ -1,4 +1,25 @@
+"*****************************************************************************
+"" Plug install packages
+"*****************************************************************************
+
+"for vim-plug to find python
 let g:python3_host_prog = '/usr/local/bin/python3'
+             
+"Adding timestamps for logging in wiki
+let g:time_stamp_enabled = 1
+command! TimeStampToggle let g:time_stamp_enabled = !g:time_stamp_enabled
+
+inoremap <expr> <CR> g:time_stamp_enabled ? "\<ESC>:call TimeStamp()\<CR>a" : "\<CR>"
+
+function! TimeStamp()
+     let l:current_time = strftime("%b.%d.%Y %H:%M")
+     execute "normal! 0i\<SPACE>\<ESC>0dwi\
+          \<C-R>=l:current_time\<CR>\
+          \<SPACE>\<SPACE>—\<SPACE>\<SPACE>\<ESC>o\<SPACE>\<SPACE>\<SPACE>\<SPACE>\
+          \<SPACE>\<SPACE>\<SPACE>\<SPACE>\<SPACE>\<SPACE>\<SPACE>\<SPACE>\<SPACE>"
+
+endfunction
+             
 " vim-bootstrap 
 
 "*****************************************************************************
@@ -44,7 +65,6 @@ Plug 'Yggdroot/indentLine'
 Plug 'avelino/vim-bootstrap-updater'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-rhubarb' " required by fugitive to :Gbrowse
-"Plug 'rakr/vim-one'
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -69,6 +89,10 @@ Plug 'honza/vim-snippets'
 "" Color
 "Plug 'tomasr/molokai'
 Plug 'kyoz/purify', { 'rtp': 'vim' }
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'KeitaNakamura/neodark.vim'
+Plug 'morhetz/gruvbox'
+Plug 'tomasiser/vim-code-dark'
 
 "*****************************************************************************
 "" Custom bundles
@@ -172,13 +196,22 @@ set ruler
 set number
 
 let no_buffers_menu=1
-" silent! colorscheme one
-colorscheme purify
+"set t_Co=256
+set cursorline
+colorscheme codedark
+
+" Rmoeve the background colors from the theme so its transparent
+highlight Normal ctermbg=NONE
+highlight nonText ctermbg=NONE
+highlight EndOfBuffer ctermbg=NONE
+
+" Change color of current line slightly
+highlight CursorLine ctermbg=8 cterm=bold guibg=8 gui=bold
+
 
 set mousemodel=popup
-set t_Co=256
 set guioptions=egmrti
-set gfn=Monospace\ 10
+set gfn=Menlo\ 10
 
 if has("gui_running")
   if has("gui_mac") || has("gui_macvim")
@@ -226,12 +259,15 @@ if exists("*fugitive#statusline")
 endif
 
 " vim-airline
-let g:airline_theme = 'one'
+let g:airline_theme = 'codedark'
+let g:airline_powerline_fonts = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline_skip_empty_sections = 1
+"highlight StatusLine ctermbg=NONE
+"hi airline_tabfill ctermfg=NONE
 
 "*****************************************************************************
 "" Abbreviations
@@ -618,3 +654,4 @@ else
   let g:airline_symbols.readonly = ''
   let g:airline_symbols.linenr = ''
 endif
+
