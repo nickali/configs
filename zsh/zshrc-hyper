@@ -24,6 +24,7 @@ alias less='bat'
 alias more='bat'
 # alias 'grep'='batgrep --color --pager=bat'
 alias man='batman'
+alias vim='nvim'
 alias journal='vi $(echo ${(L)$(date +%B-%Y)}).md'
 
 PROMPT_TITLE='$USER@$HOST:$PWD'
