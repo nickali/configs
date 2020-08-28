@@ -6,7 +6,7 @@
 let g:python3_host_prog = '/usr/local/bin/python3'
              
 "Adding timestamps for logging in wiki
-let g:time_stamp_enabled = 1
+let g:time_stamp_enabled = 0
 command! TimeStampToggle let g:time_stamp_enabled = !g:time_stamp_enabled
 
 inoremap <expr> <CR> g:time_stamp_enabled ? "\<ESC>:call TimeStamp()\<CR>a" : "\<CR>"
