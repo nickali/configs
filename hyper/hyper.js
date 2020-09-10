@@ -165,7 +165,12 @@ module.exports = {
 //  plugins: ['hyper-dnd-tabs', 'hyper-gruvbox-material', ],
 //  plugins: ['hyper-dnd-tabs', 'hyper-night-owl', ],
  // plugins: ['hyper-dnd-tabs', 'hyper-material-theme', ],
-  plugins: ['hyper-dnd-tabs', 'hyper-material-theme', 'hyper-statusline'],
+  plugins: [
+    'hyper-dnd-tabs',
+    'hyper-material-theme',
+    'hyper-statusline',
+    "hyper-purify"
+  ],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here

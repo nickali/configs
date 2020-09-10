@@ -1,0 +1,22 @@
+syntax on
+:set list
+
+:set lcs=tab:▒░,trail:▓
+:set listchars=tab:▒░,trail:▓
+
+:set nolist
+
+let g:time_stamp_enabled = 1
+command! TimeStampToggle let g:time_stamp_enabled = !g:time_stamp_enabled
+
+inoremap <expr> <CR> g:time_stamp_enabled ? "\<ESC>:call TimeStamp()\<CR>a" : "\<CR>"
+
+function! TimeStamp()
+     let l:current_time = strftime("%b.%d.%Y %H:%M")
+     execute "normal! 0i\<SPACE>\<ESC>0dwi\
+          \<C-R>=l:current_time\<CR>\
+          \<SPACE>\<SPACE>—\<SPACE>\<SPACE>\<ESC>o\<SPACE>\<SPACE>\<SPACE>\<SPACE>\
+          \<SPACE>\<SPACE>\<SPACE>\<SPACE>\<SPACE>\<SPACE>\<SPACE>\<SPACE>\<SPACE>"
+
+endfunction
+
