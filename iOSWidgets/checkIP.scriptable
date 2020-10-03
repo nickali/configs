@@ -1,0 +1,12 @@
+{
+  "always_run_in_app" : false,
+  "icon" : {
+    "color" : "purple",
+    "glyph" : "newspaper"
+  },
+  "name" : "checkIP",
+  "script" : "\/\/ The script shows the latest article\n\/\/ from MacStories in a widget on your\n\/\/ Home screen. Go to your Home screen\n\/\/ to set up the script in a widget.\n\/\/ The script will present a preview\n\/\/ of the widget when running in the\n\/\/ app.\nlet items = await loadItems()\nlet widget = await createWidget(items)\n\/\/ Check if the script is running in\n\/\/ a widget. If not, show a preview of\n\/\/ the widget to easier debug it.\nif (!config.runsInWidget) {\n  await widget.presentMedium()\n}\n\/\/ Tell the system to show the widget.\nScript.setWidget(widget)\nScript.complete()\n\nasync function createWidget(item) {\n  let date = new Date()\n  let dateFormatter = new DateFormatter()\n  dateFormatter.useShortDateStyle()\n  dateFormatter.useShortTimeStyle()\n  let strDate = dateFormatter.string(date)\n  let gradient = new LinearGradient()\n  gradient.locations = [0, 1]\n  gradient.colors = [\n    new Color(\"#b00a0fe6\"),\n    new Color(\"#b00a0fb3\")\n  ]\n  let w = new ListWidget()\n  w.backgroundColor = new Color(\"#708090\")\n\/\/  w.backgroundGradient = gradient\n  \/\/ Add spacer above content to center it vertically.\n  w.addSpacer()\n  \/\/ Show article headline.\n  let ip = w.addText(item.ip)\n  ip.font = Font.boldSystemFont(14)\n  ip.textColor = Color.white()\n  \/\/ Add spacing below headline.\n  w.addSpacer(8)\n  \/\/ Show date.\n  let dateTxt = w.addText(strDate)\n  dateTxt.font = Font.mediumSystemFont(12)\n  dateTxt.textColor = Color.white()\n  dateTxt.textOpacity = 0.9\n  \/\/ Add spacing below content to center it vertically.\n  w.addSpacer()\n  return w\n}\n  \nasync function loadItems() {\n  let url = \"https:\/\/ifconfig.co\/json\"\n  let req = new Request(url)\n  let json = await req.loadJSON()\n  return json\n}\n\nfunction extractImageURL(item) {\n  let regex = \/<img src=\"(.*)\" alt=\"\/\n  let html = item[\"content_html\"]\n  let matches = html.match(regex)\n  if (matches && matches.length >= 2) {\n    return matches[1]\n  } else {\n    return null\n  }\n}",
+  "share_sheet_inputs" : [
+
+  ]
+}
