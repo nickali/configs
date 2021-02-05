@@ -7,7 +7,7 @@ fi
 
 #export GEM_HOME=~/.gem
 #export GEM_PATH=~/.gem
-
+             
 source $(brew --prefix)/share/antigen/antigen.zsh
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -15,6 +15,7 @@ antigen bundle zpm-zsh/title
 antigen bundle gretzky/auto-color-ls
 antigen theme romkatv/powerlevel10k
 source $(dirname $(gem which colorls))/tab_complete.sh
+antigen bundle urbainvaes/fzf-marks
 antigen apply
 
 alias lc='colorls -lA --sd'
@@ -27,7 +28,8 @@ alias man='batman'
 alias vim='nvim'
 alias vi='nvim'
 alias journal='vi $(echo ${(L)$(date +%B-%Y)}).md'
-             
+alias gitemacs='cd ~/WIP/config/dot-emacs-dot-d'
+
 PROMPT_TITLE='$USER@$HOST:$PWD'
 
 function rg()
@@ -44,7 +46,18 @@ function lazygit() {
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-path=('/Users/nali/bin' $path)
-export PATH 
+alias icat="kitty +kitten icat"
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+fh() {
+  eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+}
+
+fd() {
+  local dir
+  dir=$(find ${1:-.} -path '*/\.*' -prune \
+                  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+}
+export PATH="/usr/local/sbin:$PATH"
