@@ -1,2 +1,2 @@
-# zsh + Powerline + plugins + hyper.js
-dot files to use on Mac if we want to use zsh and Powerline with hyper.js terminal.
+# zsh + Powerline + plugins + iTerm2
+dot files to use on Mac if we want to use zsh and Powerline with iTerm2 emulator.

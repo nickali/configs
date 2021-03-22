@@ -1,3 +1,5 @@
+
+export PATH="/usr/local/sbin:/usr/local/bin:$PATH"
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -18,12 +20,15 @@ source $(dirname $(gem which colorls))/tab_complete.sh
 antigen bundle urbainvaes/fzf-marks
 antigen apply
 
+eval "$(zoxide init zsh --cmd dir --hook prompt)"
+
 alias lc='colorls -lA --sd'
-alias ls='colorls --sd'
+ alias ls='colorls --sd'
+
 alias cat='bat'
 alias less='bat'
 alias more='bat'
-# alias 'grep'='batgrep --color --pager=bat'
+#alias 'grep'='batgrep --color --pager=bat'
 alias man='batman'
 alias vim='nvim'
 alias vi='nvim'
@@ -31,6 +36,8 @@ alias journal='vi $(echo ${(L)$(date +%B-%Y)}).md'
 alias gitemacs='cd ~/WIP/config/dot-emacs-dot-d'
 
 PROMPT_TITLE='$USER@$HOST:$PWD'
+export W3M_IMG2SIXEL=/usr/local/bin/img2sixel
+export PATH=/usr/local/opt/texinfo/bin:$PATH
 
 function rg()
 {
@@ -60,4 +67,9 @@ fd() {
                   -o -type d -print 2> /dev/null | fzf +m) &&
   cd "$dir"
 }
-export PATH="/usr/local/sbin:$PATH"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/terraform terraform
